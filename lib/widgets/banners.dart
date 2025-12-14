@@ -6,7 +6,7 @@ class BannersWidget extends StatefulWidget {
     super.key,
     required this.centerText,
     required this.posters,
-    this.height = 700,
+    this.height = 700,   this.isMobile = false,
     // required this.title,
     // required this.body
   });
@@ -14,6 +14,7 @@ class BannersWidget extends StatefulWidget {
   final bool centerText;
   final List<String> posters;
   final double? height;
+  final bool isMobile;
   @override
   State<BannersWidget> createState() => _BannersWidgetState();
 }
@@ -24,7 +25,9 @@ class _BannersWidgetState extends State<BannersWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(
+        horizontal: widget.isMobile ? 8.0 : 16.0,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -60,7 +63,7 @@ class _BannersWidgetState extends State<BannersWidget> {
               int index = widget.posters.indexOf(e);
               return Container(
                 width: 80,
-                height: 30,
+                height: 20,
                 margin: const EdgeInsets.symmetric(horizontal: 0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -83,10 +86,10 @@ class BannerImageOnly extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      // width: double.infinity,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(24.0)),
-      child: Image.asset(banner, fit: BoxFit.fill, width: double.infinity),
+      child: Image.asset(banner, fit: BoxFit.contain, width: double.infinity ,),
     );
   }
 }

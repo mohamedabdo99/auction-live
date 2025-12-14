@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
@@ -31,8 +18,45 @@
 
   <title>auction</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- 🔥 تحسين السرعة -->
+  <link rel="preload" href="main.dart.js" as="script">
+
+  <!-- 🟢 استخدم HTML renderer (أسرع) -->
+  <script>
+    window.flutterWebRenderer = "html";
+  </script>
 </head>
-<body>
-  <script src="flutter_bootstrap.js" async></script>
+
+<body style="margin:0;">
+
+<!-- ✅ Loader -->
+<div id="loader"
+     style="
+        background:#827153;
+        width:100vw;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+      ">
+  <img src="assets/images/logo.png" style="width:160px;" />
+</div>
+
+<!-- ⚠️ لازم flutter_bootstrap.js فقط -->
+<script src="flutter_bootstrap.js" async></script>
+
+<!-- ✅ إخفاء الـ loader -->
+<script>
+  const hideLoader = () => {
+    document.getElementById('loader')?.remove();
+  };
+
+  window.addEventListener('flutter-first-frame', hideLoader);
+
+  // أمان: لو Flutter اتأخر أو حصل Error
+  setTimeout(hideLoader, 8000);
+</script>
+
 </body>
 </html>
